@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Oficina Tech | Gestão e Agendamento</title>
+<style>
+:root{--navy:#071b2f;--navy2:#0c2947;--blue:#1476d4;--cyan:#28b7e9;--green:#28a36a;--orange:#ff9d2e;--red:#e55353;--bg:#f4f7fb;--card:#fff;--ink:#172332;--muted:#6c7a89;--line:#dce5ee}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Inter,Arial,Helvetica,sans-serif;background:var(--bg);color:var(--ink)}
+button,input,select,textarea{font:inherit}button{cursor:pointer}.hidden{display:none!important}
+.topbar{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;padding:16px 5%;position:sticky;top:0;z-index:10;box-shadow:0 4px 18px #0015}
+.nav{max-width:1200px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.logo{display:flex;align-items:center;gap:11px;font-weight:900;font-size:22px}.logo-mark{width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,var(--cyan),var(--blue));display:grid;place-items:center;font-size:23px;box-shadow:0 8px 20px #1476d455}.logo span{color:#50c9f2}.nav small{color:#bcd0e3}
+.hero{background:radial-gradient(circle at 85% 20%,#1766a0 0,#0c2947 28%,#071b2f 70%);color:#fff;padding:70px 5%}
+.hero-in{max-width:1200px;margin:auto;display:grid;grid-template-columns:1.15fr .85fr;gap:42px;align-items:center}.eyebrow{color:#6fd5f6;font-weight:800;text-transform:uppercase;letter-spacing:2px;font-size:12px}
+.hero h1{font-size:50px;line-height:1.03;margin:12px 0 16px;max-width:700px}.hero p{font-size:18px;line-height:1.6;color:#d4e3ef;max-width:650px}
+.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:25px}.btn{border:0;border-radius:11px;padding:13px 18px;font-weight:800}.primary{background:var(--orange);color:#172332}.blue{background:var(--blue);color:#fff}.ghost{background:#ffffff12;border:1px solid #ffffff30;color:#fff}.light{background:#eef5fb;color:var(--navy)}
+.hero-card{background:#ffffff0e;border:1px solid #ffffff24;border-radius:26px;padding:28px;backdrop-filter:blur(8px)}.hero-card h3{margin-top:0}.flow{display:grid;gap:12px}.flow div{background:#ffffff0d;border-radius:13px;padding:13px 15px;display:flex;gap:11px;align-items:center}
+main{max-width:1200px;margin:auto;padding:42px 5%}.section-title{text-align:center;margin-bottom:28px}.section-title h2{font-size:32px;margin:0 0 8px}.section-title p{margin:0;color:var(--muted)}
+.profile-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}.profile-card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:28px;box-shadow:0 12px 35px #17314c12}.profile-card .big{font-size:40px}.profile-card h3{font-size:24px;margin:12px 0 8px}.profile-card p{color:var(--muted);line-height:1.5}.feature-list{display:grid;gap:8px;margin:18px 0}.feature-list span{color:#405064}
+.app{margin-top:42px;background:#fff;border-radius:22px;border:1px solid var(--line);overflow:hidden;box-shadow:0 12px 35px #17314c16}.app-head{background:var(--navy);color:#fff;padding:20px 24px;display:flex;justify-content:space-between;align-items:center;gap:12px}.app-head small{color:#bcd0e3}
+.login{padding:28px;max-width:620px;margin:auto}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}.field{display:flex;flex-direction:column;gap:6px}.field label{font-size:13px;font-weight:800}.field input,.field select,.field textarea{padding:12px;border:1px solid #cfdbe6;border-radius:10px;background:#fff}.field textarea{min-height:95px;resize:vertical}.full{grid-column:1/-1}
+.notice{padding:12px 14px;border-radius:10px;margin-top:14px;background:#e9f7ef;color:#20724a}.notice.error{background:#fdecec;color:#9c3434}
+.dashboard{display:grid;grid-template-columns:230px 1fr;min-height:520px}.side{background:#0b2239;color:#d6e5f2;padding:20px}.side button{width:100%;text-align:left;border:0;background:transparent;color:#d6e5f2;padding:11px 12px;border-radius:9px;margin:3px 0}.side button.active,.side button:hover{background:#1476d4;color:#fff}.content{padding:25px;background:#f7f9fc}.view{display:none}.view.active{display:block}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.stat,.box{background:#fff;border:1px solid var(--line);border-radius:15px;padding:18px}.stat strong{display:block;font-size:28px;margin-top:7px}.muted{color:var(--muted)}.table-wrap{overflow:auto}.table{width:100%;border-collapse:collapse;background:#fff;border-radius:12px;overflow:hidden}.table th,.table td{text-align:left;padding:12px;border-bottom:1px solid #e6edf3;font-size:14px}.badge{display:inline-block;padding:6px 9px;border-radius:999px;font-size:12px;font-weight:800;background:#e9eef4;color:#526273}.b-orange{background:#fff0d8;color:#9a5a00}.b-green{background:#ddf5e8;color:#1f754b}.b-blue{background:#e2f1ff;color:#155f9e}
+footer{margin-top:45px;background:#061728;color:#bfd0df;text-align:center;padding:30px 5%;font-size:14px}
+@media(max-width:800px){.hero-in,.profile-grid,.dashboard{grid-template-columns:1fr}.hero h1{font-size:38px}.side{display:flex;overflow:auto;gap:5px}.side button{min-width:max-content}.cards,.grid2{grid-template-columns:1fr}.full{grid-column:auto}.nav small{display:none}}
+</style>
+</head>
+<body>
+<header class="topbar"><div class="nav"><div class="logo"><div class="logo-mark">🔧</div>Oficina <span>Tech</span></div><small>Agendamento • Gestão • Acompanhamento</small></div></header>
+
+<section class="hero">
+<div class="hero-in">
+<div><div class="eyebrow">Tecnologia para oficinas mecânicas</div><h1>Cliente e oficina conectados do agendamento à entrega.</h1><p>Um protótipo acadêmico mais completo para organizar veículos, solicitações de serviço, acompanhamento e gestão da oficina em duas áreas: Cliente e Administrador.</p>
+<div class="actions"><button class="btn primary" onclick="goLogin('cliente')">Entrar como Cliente</button><button class="btn ghost" onclick="goLogin('admin')">Entrar como ADM</button></div></div>
+<div class="hero-card"><h3>Como funciona</h3><div class="flow"><div>📅 <span>Cliente solicita um agendamento</span></div><div>🧰 <span>Oficina analisa e gerencia o serviço</span></div><div>🔄 <span>ADM atualiza o andamento</span></div><div>🔔 <span>Cliente acompanha o status</span></div></div></div>
+</div></section>
+
+<main>
+<section><div class="section-title"><h2>Dois perfis, funções diferentes</h2><p>Uma experiência para o cliente e outra para a gestão da oficina.</p></div>
+<div class="profile-grid">
+<div class="profile-card"><div class="big">👤</div><h3>Área do Cliente</h3><p>Organize seus veículos e acompanhe os serviços solicitados.</p><div class="feature-list"><span>✓ Cadastro de veículo</span><span>✓ Novo agendamento</span><span>✓ Acompanhamento de status</span><span>✓ Histórico de serviços</span><span>✓ Perfil do cliente</span></div><button class="btn blue" onclick="goLogin('cliente')">Acessar como cliente</button></div>
+<div class="profile-card"><div class="big">🛠️</div><h3>Painel Administrativo</h3><p>Visão da oficina para acompanhar clientes, veículos e serviços.</p><div class="feature-list"><span>✓ Dashboard de atendimento</span><span>✓ Lista de agendamentos</span><span>✓ Clientes e veículos</span><span>✓ Atualização de status</span><span>✓ Resumo operacional</span></div><button class="btn blue" onclick="goLogin('admin')">Acessar como ADM</button></div>
+</div></section>
+
+<section class="app" id="sistema">
+<div class="app-head"><div><strong id="appTitle">Acesso Oficina Tech</strong><br><small id="appSub">Escolha um perfil para entrar no protótipo.</small></div><button class="btn light" onclick="logout()">Sair</button></div>
+
+<div id="loginBox" class="login">
+<h2 id="loginTitle">Login</h2><p class="muted">Demonstração local: os dados deste protótipo ficam somente neste navegador.</p>
+<div class="grid2"><div class="field full"><label>Nome</label><input id="loginNome" placeholder="Digite seu nome"></div><div class="field full"><label>Senha</label><div style="display:flex;gap:8px"><input id="loginSenha" type="password" placeholder="Digite sua senha" style="flex:1"><button type="button" class="btn light" id="toggleSenha" onclick="alternarSenha()" aria-label="Mostrar ou ocultar senha">👁 Ver</button></div></div><div class="full"><button class="btn blue" onclick="entrar()">Entrar</button></div></div>
+<div id="loginMsg"></div></div>
+
+<div id="clientDash" class="dashboard hidden">
+<aside class="side">
+<button class="active" onclick="showClient('inicio',this)">🏠 Início</button><button onclick="showClient('veiculo',this)">🚘 Meu veículo</button><button onclick="showClient('agendar',this)">📅 Agendar</button><button onclick="showClient('status',this)">🔎 Meus serviços</button><button onclick="showClient('historico',this)">🧾 Histórico</button><button onclick="showClient('perfil',this)">👤 Perfil</button>
+</aside>
+<div class="content">
+<div id="c-inicio" class="view active"><h2>Olá, <span id="clienteNome">Cliente</span> 👋</h2><p class="muted">Aqui você acompanha sua relação com a oficina.</p><div class="cards"><div class="stat">Veículo cadastrado<strong id="statVeiculo">0</strong></div><div class="stat">Agendamentos<strong id="statAgenda">0</strong></div><div class="stat">Status atual<strong style="font-size:18px" id="statStatus">Sem serviço</strong></div></div></div>
+<div id="c-veiculo" class="view"><h2>Meu veículo</h2><div class="box grid2"><div class="field"><label>Marca</label><input id="marca" placeholder="Ex.: Chevrolet"></div><div class="field"><label>Modelo</label><input id="modelo" placeholder="Ex.: Onix"></div><div class="field"><label>Ano</label><input id="ano" type="number" placeholder="2022"></div><div class="field"><label>Placa</label><input id="placa" maxlength="8" placeholder="ABC1D23"></div><div class="full"><button class="btn blue" onclick="salvarVeiculo()">Salvar veículo</button></div></div><div id="veiculoMsg"></div></div>
+<div id="c-agendar" class="view"><h2>Novo agendamento</h2><div class="box grid2"><div class="field"><label>Serviço</label><select id="servico"><option>Troca de óleo</option><option>Revisão</option><option>Freios</option><option>Suspensão</option><option>Diagnóstico</option><option>Outro</option></select></div><div class="field"><label>Data</label><input id="data" type="date"></div><div class="field"><label>Horário</label><select id="hora"><option>08:00</option><option>09:30</option><option>11:00</option><option>14:00</option><option>15:30</option><option>17:00</option></select></div><div class="field"><label>Veículo</label><input id="veiculoAg" placeholder="Ex.: Onix 2022"></div><div class="field full"><label>Descrição do problema</label><textarea id="problema" placeholder="Descreva o que está acontecendo..."></textarea></div><div class="field full"><label>Foto do veículo/problema</label><input type="file" accept="image/*"></div><div class="full"><button class="btn primary" onclick="agendar()">Enviar solicitação</button></div></div><div id="agendaMsg"></div></div>
+<div id="c-status" class="view"><h2>Meus serviços</h2><div class="box" id="clienteServico">Nenhum serviço solicitado ainda.</div></div>
+<div id="c-historico" class="view"><h2>Histórico</h2><div class="box" id="historicoCliente">Nenhum serviço concluído.</div></div>
+<div id="c-perfil" class="view"><h2>Meu perfil</h2><div class="box"><strong id="perfilNome">Cliente</strong><p class="muted">Perfil de demonstração da Oficina Tech.</p></div></div>
+</div></div>
+
+<div id="adminDash" class="dashboard hidden">
+<aside class="side">
+<button class="active" onclick="showAdmin('dashboard',this)">📊 Dashboard</button><button onclick="showAdmin('agendamentos',this)">📅 Agendamentos</button><button onclick="showAdmin('clientes',this)">👥 Clientes</button><button onclick="showAdmin('veiculos',this)">🚗 Veículos</button><button onclick="showAdmin('status',this)">🔄 Atualizar status</button>
+</aside>
+<div class="content">
+<div id="a-dashboard" class="view active"><h2>Painel da Oficina</h2><p class="muted">Resumo operacional do protótipo.</p><div class="cards"><div class="stat">Solicitações<strong id="admSolicitacoes">0</strong></div><div class="stat">Clientes<strong id="admClientes">0</strong></div><div class="stat">Em andamento<strong id="admAndamento">0</strong></div></div></div>
+<div id="a-agendamentos" class="view"><h2>Agendamentos</h2><div class="table-wrap"><table class="table"><thead><tr><th>Cliente</th><th>Serviço</th><th>Data</th><th>Horário</th><th>Status</th></tr></thead><tbody id="agendaTabela"><tr><td colspan="5">Nenhuma solicitação.</td></tr></tbody></table></div></div>
+<div id="a-clientes" class="view"><h2>Clientes</h2><div class="box" id="clientesAdm">Nenhum cliente registrado neste navegador.</div></div>
+<div id="a-veiculos" class="view"><h2>Veículos</h2><div class="box" id="veiculosAdm">Nenhum veículo cadastrado.</div></div>
+<div id="a-status" class="view"><h2>Atualizar status</h2><div class="box grid2"><div class="field full"><label>Novo status do último serviço</label><select id="novoStatus"><option>Solicitado</option><option>Confirmado</option><option>Em andamento</option><option>Aguardando retirada</option><option>Concluído</option></select></div><div class="full"><button class="btn blue" onclick="atualizarStatus()">Salvar status</button></div></div><div id="statusMsg"></div></div>
+</div></div>
+</section>
+</main>
+
+<footer><strong>Oficina Tech</strong> • Protótipo acadêmico de agendamento e gestão de oficinas mecânicas</footer>
+
+<script>
+let perfil='cliente';
+function goLogin(p){perfil=p;document.getElementById('loginBox').classList.remove('hidden');clientDash.classList.add('hidden');adminDash.classList.add('hidden');loginTitle.textContent=p==='admin'?'Login do Administrador':'Login do Cliente';appTitle.textContent=p==='admin'?'Painel Administrativo — Oficina Tech':'Área do Cliente — Oficina Tech';appSub.textContent=p==='admin'?'Gestão de atendimentos e serviços.':'Agendamento e acompanhamento do seu veículo.';loginMsg.innerHTML='';loginSenha.type='password';document.getElementById('toggleSenha').textContent='👁 Ver';document.getElementById('sistema').scrollIntoView({behavior:'smooth'})}
+function entrar(){const nome=loginNome.value.trim();const senha=loginSenha.value.trim();if(!nome||!senha){loginMsg.innerHTML='<div class="notice error">Preencha nome e senha.</div>';return}if(perfil==='admin'&&senha!=='OficinaTech2026@br'){loginMsg.innerHTML='<div class="notice error">Senha de administrador inválida.</div>';loginSenha.value='';loginSenha.focus();return}localStorage.setItem('otUsuario',nome);loginMsg.innerHTML='';loginBox.classList.add('hidden');if(perfil==='cliente'){clientDash.classList.remove('hidden');clienteNome.textContent=nome;perfilNome.textContent=nome}else{adminDash.classList.remove('hidden')}refresh()}
+function alternarSenha(){const campo=document.getElementById('loginSenha');const botao=document.getElementById('toggleSenha');if(campo.type==='password'){campo.type='text';botao.textContent='🙈 Ocultar'}else{campo.type='password';botao.textContent='👁 Ver'}}
+function logout(){loginBox.classList.remove('hidden');clientDash.classList.add('hidden');adminDash.classList.add('hidden');loginSenha.value='';loginMsg.innerHTML=''}
+function showClient(id,b){document.querySelectorAll('#clientDash .view').forEach(x=>x.classList.remove('active'));document.querySelectorAll('#clientDash .side button').forEach(x=>x.classList.remove('active'));document.getElementById('c-'+id).classList.add('active');b.classList.add('active')}
+function showAdmin(id,b){document.querySelectorAll('#adminDash .view').forEach(x=>x.classList.remove('active'));document.querySelectorAll('#adminDash .side button').forEach(x=>x.classList.remove('active'));document.getElementById('a-'+id).classList.add('active');b.classList.add('active');refresh()}
+function salvarVeiculo(){const v={marca:marca.value.trim(),modelo:modelo.value.trim(),ano:ano.value,placa:placa.value.trim().toUpperCase()};if(!v.marca||!v.modelo){veiculoMsg.innerHTML='<div class="notice error">Preencha marca e modelo.</div>';return}localStorage.setItem('otVeiculo',JSON.stringify(v));veiculoAg.value=(v.marca+' '+v.modelo+' '+v.ano).trim();veiculoMsg.innerHTML='<div class="notice">✓ Veículo salvo neste navegador.</div>';refresh()}
+function agendar(){if(!data.value){agendaMsg.innerHTML='<div class="notice error">Escolha uma data.</div>';return}const a={cliente:localStorage.getItem('otUsuario')||'Cliente',servico:servico.value,data:data.value,hora:hora.value,veiculo:veiculoAg.value,problema:problema.value,status:'Solicitado'};localStorage.setItem('otAgendamento',JSON.stringify(a));agendaMsg.innerHTML='<div class="notice">✓ Solicitação enviada para a oficina.</div>';refresh()}
+function atualizarStatus(){const a=JSON.parse(localStorage.getItem('otAgendamento')||'null');if(!a){statusMsg.innerHTML='<div class="notice error">Não existe serviço para atualizar.</div>';return}a.status=novoStatus.value;localStorage.setItem('otAgendamento',JSON.stringify(a));statusMsg.innerHTML='<div class="notice">✓ Status atualizado para '+a.status+'.</div>';refresh()}
+function fmt(d){return d?d.split('-').reverse().join('/'):'—'}
+function refresh(){const v=JSON.parse(localStorage.getItem('otVeiculo')||'null');const a=JSON.parse(localStorage.getItem('otAgendamento')||'null');const u=localStorage.getItem('otUsuario')||'Cliente';
+if(v){marca.value=v.marca||'';modelo.value=v.modelo||'';ano.value=v.ano||'';placa.value=v.placa||'';veiculoAg.value=(v.marca+' '+v.modelo+' '+(v.ano||'')).trim();statVeiculo.textContent='1';veiculosAdm.innerHTML='<strong>'+v.marca+' '+v.modelo+'</strong><p class="muted">'+(v.ano||'Ano não informado')+' • '+(v.placa||'Placa não informada')+'</p>'}else statVeiculo.textContent='0';
+clientesAdm.innerHTML='<strong>'+u+'</strong><p class="muted">Cliente registrado no protótipo local.</p>';admClientes.textContent=localStorage.getItem('otUsuario')?'1':'0';
+if(a){statAgenda.textContent='1';statStatus.textContent=a.status;admSolicitacoes.textContent='1';admAndamento.textContent=a.status==='Em andamento'?'1':'0';clienteServico.innerHTML='<strong>'+a.servico+'</strong><p>'+a.veiculo+' • '+fmt(a.data)+' às '+a.hora+'</p><span class="badge '+(a.status==='Concluído'?'b-green':a.status==='Em andamento'?'b-orange':'b-blue')+'">'+a.status+'</span><p class="muted">'+(a.problema||'Sem descrição adicional.')+'</p>';agendaTabela.innerHTML='<tr><td>'+a.cliente+'</td><td>'+a.servico+'</td><td>'+fmt(a.data)+'</td><td>'+a.hora+'</td><td><span class="badge">'+a.status+'</span></td></tr>';historicoCliente.innerHTML=a.status==='Concluído'?'<strong>'+a.servico+'</strong><p class="muted">Concluído • '+fmt(a.data)+'</p>':'Nenhum serviço concluído.'}else{statAgenda.textContent='0';statStatus.textContent='Sem serviço';admSolicitacoes.textContent='0';admAndamento.textContent='0'}}
+window.addEventListener('load',()=>{goLogin('cliente');refresh()});
+</script>
+</body>
+</html>
