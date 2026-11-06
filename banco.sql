@@ -1,11 +1,13 @@
-CREATE DATABASE IF NOT EXISTS oficina_tech
-  CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE DATABASE IF NOT EXISTS oficina_tech CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 USE oficina_tech;
 
 CREATE TABLE usuarios (
   id BIGINT AUTO_INCREMENT PRIMARY KEY,
   nome VARCHAR(100) NOT NULL,
   email VARCHAR(150) NOT NULL UNIQUE,
+  telefone VARCHAR(25),
+  genero VARCHAR(30),
+  foto_url TEXT,
   senha_hash VARCHAR(255) NOT NULL,
   perfil ENUM('CLIENTE','ADM') NOT NULL DEFAULT 'CLIENTE',
   criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -18,6 +20,8 @@ CREATE TABLE veiculos (
   modelo VARCHAR(60) NOT NULL,
   ano INT,
   placa VARCHAR(10),
+  cor VARCHAR(40),
+  foto_url TEXT,
   FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE
 );
 
@@ -29,8 +33,9 @@ CREATE TABLE agendamentos (
   data_servico DATE NOT NULL,
   horario TIME NOT NULL,
   problema TEXT,
-  status ENUM('SOLICITADO','CONFIRMADO','EM_ANDAMENTO','AGUARDANDO_RETIRADA','CONCLUIDO')
-    NOT NULL DEFAULT 'SOLICITADO',
+  status ENUM('SOLICITADO','CONFIRMADO','EM_ANDAMENTO','AGUARDANDO_RETIRADA','CONCLUIDO') NOT NULL DEFAULT 'SOLICITADO',
+  valor_orcamento DECIMAL(10,2),
+  decisao_orcamento ENUM('PENDENTE','APROVADO','RECUSADO') NOT NULL DEFAULT 'PENDENTE',
   criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE,
   FOREIGN KEY (veiculo_id) REFERENCES veiculos(id) ON DELETE CASCADE
@@ -43,4 +48,40 @@ CREATE TABLE historico_status (
   status_novo VARCHAR(40) NOT NULL,
   alterado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (agendamento_id) REFERENCES agendamentos(id) ON DELETE CASCADE
+);
+
+CREATE TABLE avaliacoes (
+  id BIGINT AUTO_INCREMENT PRIMARY KEY,
+  agendamento_id BIGINT NOT NULL UNIQUE,
+  usuario_id BIGINT NOT NULL,
+  nota TINYINT NOT NULL,
+  comentario TEXT,
+  criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  CHECK (nota BETWEEN 1 AND 5),
+  FOREIGN KEY (agendamento_id) REFERENCES agendamentos(id) ON DELETE CASCADE,
+  FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE
+);
+
+CREATE TABLE pecas (
+  id BIGINT AUTO_INCREMENT PRIMARY KEY,
+  nome VARCHAR(120) NOT NULL,
+  marca VARCHAR(80),
+  fornecedor VARCHAR(150),
+  preco DECIMAL(10,2),
+  garantia VARCHAR(80),
+  quantidade INT NOT NULL DEFAULT 0,
+  criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE lembretes_manutencao (
+  id BIGINT AUTO_INCREMENT PRIMARY KEY,
+  usuario_id BIGINT NOT NULL,
+  veiculo_id BIGINT NOT NULL,
+  descricao VARCHAR(160) NOT NULL,
+  data_prevista DATE,
+  quilometragem_prevista INT,
+  canal ENUM('SISTEMA','EMAIL','WHATSAPP','AMBOS') NOT NULL DEFAULT 'SISTEMA',
+  enviado_em TIMESTAMP NULL,
+  FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE,
+  FOREIGN KEY (veiculo_id) REFERENCES veiculos(id) ON DELETE CASCADE
 );
